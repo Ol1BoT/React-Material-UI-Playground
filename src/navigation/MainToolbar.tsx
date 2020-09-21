@@ -1,7 +1,9 @@
-import React, {FunctionComponent} from 'react'
+import React, {FunctionComponent, useState} from 'react'
 import {AppBar, IconButton, Typography, Toolbar, Button} from '@material-ui/core'
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu';
+
+import {NavigationBar} from './NavigationBar'
 
 
 const useStyles = makeStyles((theme: Theme) => 
@@ -20,6 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ApplicationBar: FunctionComponent<any> = () => {
 
+  const [drawerOpen, setDrawerOpen] = useState(true)
+
+  const drawerStatus = () => {
+    console.log("Drawer",drawerOpen)
+    setDrawerOpen(!drawerOpen)
+  }
+
 const classes = useStyles()
 
     return (
@@ -27,8 +36,8 @@ const classes = useStyles()
 
         <AppBar className={classes.appBar} position="fixed">
             <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={drawerStatus}>
+            <MenuIcon/>
           </IconButton>
           <Typography variant="h6">
             News
@@ -36,6 +45,7 @@ const classes = useStyles()
           <Button color="inherit">Login</Button>
         </Toolbar>
         </AppBar>
+        <NavigationBar drawerOpen={drawerOpen}></NavigationBar>
       </div>
     )
 }
